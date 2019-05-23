@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'dart:convert';
 
 import './dashboard_page.dart';
 
@@ -124,13 +125,13 @@ class LoginPage extends StatelessWidget {
                     print(_passwordController.text);
 
                     _firebaseMessaging.getToken().then((token) {
-                      final url = 'https://go.sfleet.mx/api/v2/authentications';
+                      final url = 'http://localhost:3000/api/v3/authentications';
                       http.post(url, body: {'email': '${_emailController.text}', 'password': '${_passwordController.text}', 'device_token': '$token'}).then((response) {
                         print('Response status: ${response.statusCode}');
                         print('Response body: ${response.body}');
 
                         if (response.statusCode == 200) {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardPage()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardPage(userData: json.decode(response.body))));
                         } else {
                           _showAlert();
                         }
