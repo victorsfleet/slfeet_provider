@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -12,6 +11,25 @@ class DashboardPage extends StatelessWidget {
   final userData;
   
   DashboardPage({Key key, @required this.userData}) : super(key: key);
+
+  Container flowSteps(IconData icon, String title, int step) {
+    return Container(
+      width: 160.0,
+      child: Card(
+        child: InkWell(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Icon(icon),
+              Text(title),
+              Text('Paso $step de 7'),
+              LinearProgressIndicator(backgroundColor: Colors.grey, value: step/7)
+            ]
+          )
+        )
+      )
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,117 +83,21 @@ class DashboardPage extends StatelessWidget {
         )
       ),
       body: Container(
-  margin: EdgeInsets.symmetric(vertical: 20.0),
-  height: 160.0,
-  child: ListView(
-    scrollDirection: Axis.horizontal,
-    children: <Widget>[
-      Container(
-        width: 160.0,
-        child: Card(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Icon(Icons.calendar_today),
-              Text('Solicitud de cita'),
-              Text('Paso 1 de 7'),
-              LinearProgressIndicator(backgroundColor: Colors.grey, value: 0.14)
-            ]
-          )
-        )
-      ),
-      Container(
-        width: 160.0,
-        child: Card(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Icon(Icons.event_available),
-              Text('Confirmar cita'),
-              Text('Paso 2 de 7'),
-              LinearProgressIndicator(backgroundColor: Colors.grey, value: 0.28)
-            ]
-          )
-        )
-      ),
-      Container(
-        width: 160.0,
-        child: Card(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Icon(Icons.local_atm),
-              Text('Presupuesto'),
-              Text('Paso 3 de 7'),
-              LinearProgressIndicator(backgroundColor: Colors.grey, value: 0.42)
-            ]
-          )
-        )
-      ),
-      Container(
-        width: 160.0,
-        child: Card(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Icon(Icons.verified_user),
-              Text('Autorización'),
-              Text('Paso 4 de 7'),
-              LinearProgressIndicator(backgroundColor: Colors.grey, value: 0.56)
-            ]
-          )
-        )
-      ),
-      Container(
-        width: 160.0,
-        child: Card(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Icon(Icons.settings),
-              Text('En proceso'),
-              Text('Paso 5 de 7'),
-              LinearProgressIndicator(backgroundColor: Colors.grey, value: 0.70)
-            ]
-          )
-        )
-      ),
-      Container(
-        width: 160.0,
-        child: Card(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Icon(Icons.directions_car),
-              Text('Entrega'),
-              Text('Paso 6 de 7'),
-              LinearProgressIndicator(backgroundColor: Colors.grey, value: 0.84)
-            ]
-          )
-        )
-      ),
-      Container(
-        width: 160.0,
-        child: Card(
-          child: InkWell(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Icon(Icons.event_available),
-                Text('Cierre'),
-                Text('Paso 7 de 7'),
-                LinearProgressIndicator(backgroundColor: Colors.grey, value: 1.0)
-              ]
-            ),
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => MaintenanceServiceRequestPage()));
-            }
-          )
+        margin: EdgeInsets.symmetric(vertical: 20.0),
+        height: 160.0,
+        child: ListView(
+          scrollDirection: Axis.horizontal,
+          children: <Widget>[
+            flowSteps(Icons.calendar_today, 'Solicitud de cita', 1),
+            flowSteps(Icons.event_available, 'Confirmar cita', 2),
+            flowSteps(Icons.local_atm, 'Presupuesto', 3),
+            flowSteps(Icons.verified_user, 'Autorización', 4),
+            flowSteps(Icons.settings, 'En proceso', 5),
+            flowSteps(Icons.directions_car, 'Entrega', 6),
+            flowSteps(Icons.event_available, 'Cierre', 7),
+          ]
         )
       )
-    ]
-  )
-)
     );
   }
 }
