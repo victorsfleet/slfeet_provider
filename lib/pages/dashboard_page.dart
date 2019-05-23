@@ -12,27 +12,29 @@ class DashboardPage extends StatelessWidget {
   
   DashboardPage({Key key, @required this.userData}) : super(key: key);
 
-  Container flowSteps(IconData icon, String title, int step) {
-    return Container(
-      width: 160.0,
-      child: Card(
-        child: InkWell(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Icon(icon),
-              Text(title),
-              Text('Paso $step de 7'),
-              LinearProgressIndicator(backgroundColor: Colors.grey, value: step/7)
-            ]
-          )
-        )
-      )
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
+    Container flowSteps(IconData icon, String title, int step) {
+      return Container(
+        width: 160.0,
+        child: Card(
+          child: InkWell(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Icon(icon),
+                Text(title),
+                Text('Paso $step de 7'),
+                LinearProgressIndicator(backgroundColor: Colors.grey, value: step/7)
+              ]
+            ),
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => MaintenanceServiceRequestPage()));
+            }
+          )
+        )
+      );
+    }
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
