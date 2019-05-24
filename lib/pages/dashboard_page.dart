@@ -14,6 +14,7 @@ class DashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     Container flowSteps(IconData icon, String title, int step) {
       return Container(
         width: 160.0,
@@ -35,6 +36,7 @@ class DashboardPage extends StatelessWidget {
         )
       );
     }
+
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
@@ -43,7 +45,7 @@ class DashboardPage extends StatelessWidget {
             tooltip: 'Notificaciones',
             onPressed: () {
               final url = 'http://localhost:3000/api/v3/notifications';
-              http.get(url, headers: {HttpHeaders.authorizationHeader: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNDg0Mn0.uwozZrJDUm92kZHRtSsCgfaUYlcqAmeWTx-9KTG1NyM'}).then((response) {
+              http.get(url, headers: {HttpHeaders.authorizationHeader: userData['jwt']}).then((response) {
                 print('Response status: ${response.statusCode}');
                 print('Response body: ${response.body}');
 

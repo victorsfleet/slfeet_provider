@@ -29,4 +29,3 @@ class NotificationsPage extends StatelessWidget {
     );
   }
 }
-
