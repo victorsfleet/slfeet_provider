@@ -1,10 +1,9 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:http/http.dart' as http;
-import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:scoped_model/scoped_model.dart';
 
-import './dashboard_page.dart';
+import '../scoped_models/main.dart';
+import '../pages/dashboard_page.dart';
 
 class LoginPage extends StatelessWidget {
   @override
@@ -117,30 +116,22 @@ class LoginPage extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: RaisedButton(
-                onPressed: () {
-                  if (_formKey.currentState.validate()) {
-                    final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
-                    print(_emailController.text);
-                    print(_passwordController.text);
-
-                    _firebaseMessaging.getToken().then((token) {
-                      final url = 'http://localhost:3000/api/v3/authentications';
-                      http.post(url, body: {'email': '${_emailController.text}', 'password': '${_passwordController.text}', 'device_token': '$token'}).then((response) {
-                        print('Response status: ${response.statusCode}');
-                        print('Response body: ${response.body}');
-
-                        if (response.statusCode == 200) {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardPage(userData: json.decode(response.body))));
+              child: ScopedModelDescendant<MainModel>(
+                builder: (BuildContext context, Widget child, MainModel model) {
+                  return RaisedButton(
+                    onPressed: () async {
+                      if (_formKey.currentState.validate()) {
+                        final Map<String, dynamic> user = await model.login(_emailController.text, _passwordController.text);
+                        if (!user['error']) {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardPage(userData: user)));
                         } else {
                           _showAlert();
                         }
-
-                      });
-                    });
-                  }
-                },
-                child: Text('Submit'),
+                      }
+                    },
+                    child: Text('Submit'),
+                  );
+                }
               )
             )
           ]
