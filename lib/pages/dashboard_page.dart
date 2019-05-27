@@ -45,7 +45,7 @@ class DashboardPage extends StatelessWidget {
             tooltip: 'Notificaciones',
             onPressed: () {
               final url = 'http://localhost:3000/api/v3/notifications';
-              http.get(url, headers: {HttpHeaders.authorizationHeader: userData['jwt']}).then((response) {
+              http.get(url, headers: {HttpHeaders.authorizationHeader: userData.jwt}).then((response) {
                 print('Response status: ${response.statusCode}');
                 print('Response body: ${response.body}');
 

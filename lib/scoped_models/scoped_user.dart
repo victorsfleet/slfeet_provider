@@ -34,7 +34,7 @@ mixin UserModel on Model {
     return userData;
   }
 
-  void auth() async {
+  Future<void> auth() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String userData = prefs.getString('userData');
 
