@@ -123,7 +123,7 @@ class LoginPage extends StatelessWidget {
                       if (_formKey.currentState.validate()) {
                         final Map<String, dynamic> user = await model.login(_emailController.text, _passwordController.text);
                         if (!user['error']) {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardPage(userData: user)));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardPage(userData: user['user'])));
                         } else {
                           _showAlert();
                         }

@@ -14,7 +14,7 @@ class DashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+//print(userData);
     Container flowSteps(IconData icon, String title, int step) {
       return Container(
         width: 160.0,
@@ -73,14 +73,14 @@ class DashboardPage extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Text(userData['name'])
+                Text(userData.name)
               ]
             ),
             Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                StarDisplay(value: userData['rating'])
+                StarDisplay(value: userData.rating)
               ],
             )
           ]

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'scoped_models/main.dart';
 import 'pages/login_page.dart';
@@ -42,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return ScopedModelDescendant(builder: (BuildContext context, Widget child, MainModel model) {
-      return model.user == null ? LoginPage() : DashboardPage(userData: model.user);
+      return model.user == null ? LoginPage() : DashboardPage(userData: _model.user);
     });
   }
 }

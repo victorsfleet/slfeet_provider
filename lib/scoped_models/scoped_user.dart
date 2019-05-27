@@ -24,11 +24,11 @@ mixin UserModel on Model {
 
     if (response.statusCode == 200) {
       final res = json.decode(response.body);
-      User user = User(userId: res['user_id'], userType: res['user_type'], name: res['name'], rating: res['rating'], jwt: res['jwt']);
-      _authenticatedUser = user;
-      userData = {'error': false};
+      _authenticatedUser = User(userId: res['user_id'], userType: res['user_type'], name: res['name'], rating: res['rating'], jwt: res['jwt']);
+      userData['user'] = _authenticatedUser;
+      userData['error'] = false;
       final SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString('userData', json.encode(_authenticatedUser));
+      prefs.setString('userData', response.body);
     }
 
     return userData;
@@ -40,8 +40,7 @@ mixin UserModel on Model {
 
     if (userData != null) {
       final res = json.decode(userData);
-      User user = User(userId: res['user_id'], userType: res['user_type'], name: res['name'], rating: res['rating'], jwt: res['jwt']);
-      _authenticatedUser = user;
+      _authenticatedUser = User(userId: res['user_id'], userType: res['user_type'], name: res['name'], rating: res['rating'], jwt: res['jwt']);
     }
   }
 }
